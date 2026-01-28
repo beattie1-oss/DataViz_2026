@@ -1,0 +1,315 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{graphicx,textcomp}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage[reqno]{amsmath}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{endnotes}
+\usepackage{lscape}
+\newtheorem{com}{Comment}
+\usepackage{float}
+\usepackage{hyperref}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\usepackage[compact]{titlesec}
+\usepackage{dcolumn}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\definecolor{light-gray}{gray}{0.65}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+\usepackage{placeins}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\newcommand{\Sref}[1]{Section~\ref{#1}}
+\newtheorem{hyp}{Hypothesis}
+
+
+\title{Problem Set 1}
+\date{Due: January 28, 2026}
+\author{Data Visualisation for Social Scientists}
+
+\begin{document}
+	\maketitle
+	
+	\section*{Instructions}
+	\begin{itemize}
+	\item Please show your work! You may lose points by simply writing in the answer. If the problem requires you to execute commands in \texttt{R}, please include the code you used to get your answers. Please also include the \texttt{.R} file that contains your code. If you are not sure if work needs to be shown for a particular problem, please ask.
+\item Your homework should be submitted electronically on GitHub.
+\item This problem set is due before 23:59 on Wednesday January 28, 2026. No late assignments will be accepted.
+	\end{itemize}
+	
+	\vspace{1cm}
+	\section*{Roll Call Votes in the European Parliament}
+
+\subsection*{Data Manipulation}
+First, you need to \href{https://personal.lse.ac.uk/hix/HixNouryRolandEPdata.HTM}{download data} from the first six elected European Parliaments on each MEP and how they voted in each recorded roll-call vote.
+
+\vspace{.25cm}
+
+\begin{enumerate}
+\item Load these datasets into your global environment:
+\begin{itemize}
+	\item \texttt{mep\_info\_26Jul11.xls} (MEP characteristics, EP1–EP5)
+	\item \texttt{rcv\_ep1.txt} (EP1 roll-call votes)
+\end{itemize}
+First step is to set up and load necessary packages
+\lstinputlisting[language=R, firstline=26, lastline=26]{PS01_EB.R}
+
+For the Information on MEP's explore .xls file and see that there are many sheets from which we wish to extract the info from the 5 parliamentary years. Use a function to extract the relevant sheets and store the data, checking important factors like the dimensions are numeric. Rename and tidy into a dataframe 
+\lstinputlisting[language=R, firstline=34, lastline=49]{PS01_EB.R}
+Read in 'Rolling Call Vote' files for each EP, as they are .txt files deliminated by commas, use read delim and specify encoding to make sure characters appear correctly. 
+\lstinputlisting[language=R, firstline=52, lastline=58]{PS01_EB.R}
+
+\item Briefly describe (2–3 sentences each) the unit of analysis and key variables in each of these two datasets.\\
+The MEP info dataset has detailed information about 3222 MEP's in the European parliament, identified by an MEP Id number, and their name. There is additional information such as a letter code for their member state (which of the 15 EU countries they come from), National Party a four digit code relating to their specific political party (out of 169 parties) and an 'EP group' code, a letter that relates to a one of 13 identified groups of similar political leaning/ideology. It also includes each MEP's NOMINATE coordinates (stored as numerical coordinates for each of the two dimensions) on a scale from -1 to +1.  
+
+The RCV1 dataset stores voting data for the first elected European Parliament (1979-1984). It contains a row for each MEP with some metadata similar to the MEP info (e.g. name, id, National party etc.) as well as how they vote in every EP vote (V1-V886)  coded as a single number that corresponds to a specific outcome (i.e. 'Yes', 'No' 'Absent' 'Abstain' etc.).  RCV2-5 follow a similar format/content. 
+
+
+\item The \texttt{rcv\_ep1} data are in a wide format, with V1, V2, …, Vn as separate vote columns.
+\begin{itemize}
+	\item Identify which columns are ID/metadata (\textit{MEPID, MEPNAME, MS, NP, EPG}) and which columns are vote decisions ($V_1$…$V_n$). Tidy the voting data such that each row/observation is a single vote for a single MEP.\\
+	
+	All but the first five columns are vote decisions. Therefore to tidy the day use pivot longer with all but the first 5 columns, to create a new variable 'Votes' that refers to the specific vote (V1,...Vn)and 'Outcome' (coded 0:5)that is the code for the MEP action. 
+	\lstinputlisting[language=R, firstline=60, lastline=65]{PS01_EB.R} \
+	\item Create a summary table of counts of decision categories (e.g. Yes/No/Abstain/Present but did not vote/Absent) across all votes.\\
+	Next step is to create categorical variable of 'Outcome' that refers to the MEP's behaviour. As the code for EP 3 and 4 are different (according to source) use two different coding schemes to create the new variable. By using mutate, we are able to create a new 'OutcomeCategory' variable that has the decision as the word e.g. 'Yes'
+	
+	\lstinputlisting[language=R, firstline=67, lastline=89]{PS01_EB.R} \
+	Create a count table for EP 1, that sees the number of outcomes of different types across all the votes. Using dplyr to group by OutcomeCategory then presenting a table with the counts in each category. 
+	\lstinputlisting[language=R, firstline=91, lastline=95]{PS01_EB.R} \
+	\begin{verbatim}
+		A tibble: 6 × 2
+		Outcome_Category     count
+		<chr>                <int>
+		1 Present but no vote 109224
+		2 Not an MEP          103618
+		3 Absent               99753
+		4 Yes                  88185
+		5 No                   75171
+		6 Abstain               9577
+	\end{verbatim}
+	From this we can see in the first European Parliment that most of the time MEP are present but do not vote, are not and MEP or are absent. 
+\end{itemize}
+\item  Construct a new dataset that combines MEP-level information with their vote decisions from EP1 in long format (from part 3). Check for missingness. \\
+	First collect all RCV dataframes together by binding rows, change the name of 'MEP id' from MEP info dataframe so that they can be matched when combining. Join the dataframes together using left join that  matching common key (the EP and Member Id) such that the additional info on the Nominate Dimensions are added to the correct MEPs. 
+	\lstinputlisting[language=R, firstline=97, lastline=111]{PS01_EB.R} \
+	Use summarise to check for missing data across the whole new dataset. Can see some evidence of missing values. 
+	\lstinputlisting[language=R, firstline=113, lastline=115]{PS01_EB.R} \
+		\begin{verbatim}
+	A tibble: 1 × 11
+	MEPID MEPNAME    MS    NP   EPG Votes Outcome Outcome_Category  Year `NOM-D1` `NOM-D2`
+	<int>   <int> <int> <int> <int> <int>   <int>            <int> <int>    <int>    <int>
+	1     0       0     0     0     0     0       0             2733     0   202844   202844
+		\end{verbatim}
+	Tidy data by removing them and seeing about 20,000 removed. 
+	\lstinputlisting[language=R, firstline=117, lastline=125]{PS01_EB.R} \
+		\begin{verbatim}
+			A tibble: 1 × 1
+			n_rows
+			<int>
+			1 10172184
+			
+			# A tibble: 1 × 1
+			n_rows
+			<int>
+			1 9968833
+		\end{verbatim}
+\item Compute, for each EP group in EP1:
+\begin{itemize}
+		First of all select EP1, group the data by EP group and see roughly how many votes fall into each category.  
+		\lstinputlisting[language=R, firstline=128, lastline=135]{PS01_EB.R} \
+	\item The mean rate of Yes votes (Yes over Yes+No+Abstain) across all roll calls.
+		\lstinputlisting[language=R, firstline=137, lastline=141]{PS01_EB.R} \
+		\begin{verbatim}
+			# A tibble: 8 × 2
+			EPG   Yes_Rate
+			<chr>    <dbl>
+			1 C        0.415
+			2 E        0.509
+			3 G        0.517
+			4 L        0.487
+			5 M        0.529
+			6 N        0.582
+			7 R        0.457
+			8 S        0.576
+		\end{verbatim}
+		Can see that group N has the highest Yes rate with group C the lowest. 
+	\item The mean abstention rate. \\
+		\lstinputlisting[language=R, firstline=143, lastline=147]{PS01_EB.R} \
+		\begin{verbatim}
+		# A tibble: 8 × 2
+		EPG   Abstain_Rate
+		<chr>        <dbl>
+		1 C          0.0468 
+		2 E          0.00970
+		3 G          0.0141 
+		4 L          0.0200 
+		5 M          0.0249 
+		6 N          0.0103 
+		7 R          0.0505 
+		8 S          0.0214
+		\end{verbatim}
+		Can see much lower rates of Abstaining with group E abstaining the least. 
+	\item The mean vote preferences along the two contested dimensions (NOM-D1 and NOM-D2).\\
+		Look at Yes, No and Abstain by filtering the outcome category and finding the mean of each dimensions within these subgroups. This gives insight into the coordinates of Nominate dimension for each group within category outcomes. Can see that the dimensions averages within groups for different outcomes is similar but slightly different (e.g. group M average D1 for Yes is -.284 for Yes but -.311 for No). May give insight within groups as to voting behaviour of MEP's. 
+		\lstinputlisting[language=R, firstline=150, lastline=156]{PS01_EB.R} \
+		\begin{verbatim}
+			# A tibble: 8 × 3
+			EPG   mean_D1 mean_D2
+			<chr>   <dbl>   <dbl>
+			1 C      0.811    0.532
+			2 E      0.510   -0.267
+			3 G      0.287   -0.823
+			4 L      0.419   -0.305
+			5 M     -0.284   -0.149
+			6 N      0.186   -0.179
+			7 R     -0.501   -0.150
+			8 S     -0.0921   0.387
+		\end{verbatim}
+		'No' dimension averages
+		\lstinputlisting[language=R, firstline=165, lastline=170]{PS01_EB.R} \
+		\begin{verbatim}
+			# A tibble: 8 × 3
+			EPG   mean_D1 mean_D2
+			<chr>   <dbl>   <dbl>
+			1 C      0.811   0.530 
+			2 E      0.516  -0.269 
+			3 G      0.292  -0.811 
+			4 L      0.422  -0.300 
+			5 M     -0.311  -0.155 
+			6 N      0.237  -0.242 
+			7 R     -0.607  -0.0533
+			8 S     -0.0860  0.399 
+		\end{verbatim}
+		Abstain preferences 
+		\lstinputlisting[language=R, firstline=165, lastline=170]{PS01_EB.R} \
+		\begin{verbatim}
+			# A tibble: 8 × 3
+			EPG   mean_D1 mean_D2
+			<chr>   <dbl>   <dbl>
+			1 C       0.811  0.526 
+			2 E       0.495 -0.268 
+			3 G       0.286 -0.807 
+			4 L       0.421 -0.276 
+			5 M      -0.343 -0.111 
+			6 N       0.146 -0.0589
+			7 R      -0.710 -0.0126
+			8 S      -0.106  0.351 
+		\end{verbatim}
+		
+\end{itemize}
+\end{enumerate}
+
+\subsection*{Data Visualization}
+
+\begin{enumerate}
+	\item Plot the distribution of the first NOMINATE dimension by EP group, and explain any trends you see. \\
+	Aim to create dataset of MEP's grouped by EPG and use a density ridge plot to show the distribution of MEP's within different EP groups on the distribution of D1 scores. Can get insight into how similar/skewed the preferences of each group are and where they lie on the scale from -1 to 1. 
+		\lstinputlisting[language=R, firstline=175, lastline=218]{PS01_EB.R} \
+		\begin{figure}[!htbp]\centering
+			\caption{\footnotesize MEP Nominate Dimension 1 by EP Group}
+			\label{fig:plot_1}
+			\includegraphics[width=.99\textwidth]{PS01_Fig1.pdf}
+			\begin{flushleft}
+				\footnotesize Notes: From MEP's across the first five European Parliaments. 
+			\end{flushleft}
+		\end{figure}
+		\FloatBarrier
+	From this we can see group X and V are the most clearly polarised at the top and bottom of the dimension respectively. Groups S, R, O and M generally have MEP's scoring negatively on the dimension whereas N, L, G, E, C and A tend to contain MEPs with positive scores on the dimension. Group N appears to have the widest range of MEP's on the dimension. EP groups O, and E have the most 'normal' distributions, Group C and L appear to have bimodal distributions, whilst group A seems to be tetramodal. 
+	\item Make a scatterplot of \textit{nomdim1} (x-axis) and \textit{nomdim2} (y-axis), with one point per MEP and color by EP group.
+			\lstinputlisting[language=R, firstline=225, lastline=257]{PS01_EB.R} \
+			\begin{figure}[!htbp]\centering
+				\caption{\footnotesize MEP's Nominate Coordinates }
+				\label{fig:plot_2}
+				\includegraphics[width = 18cm]{PS01_Fig2.pdf}
+				\begin{flushleft}
+					\footnotesize Notes: 3099 MEP's from first five European Parliaments, for MEP's elected for multiple Parliments, their average dimension scores were plotted.
+				\end{flushleft}
+			\end{figure}
+			\FloatBarrier
+	\item Produce a boxplot of the proportion voting \textit{Yes} by EP group to visualize cohesion.\\
+	Calculating a Yes rate (of yes outcomes divided by total votes) and plotting the proportion voting yes by group in a boxplot clearly displays the differences in yes rates across groups. It also shows the spread difference ()e.g. V vs X) as to how similar MEP's yes rates are within the EP group.
+			\lstinputlisting[language=R, firstline=260, lastline=291]{PS01_EB.R} \
+			\begin{figure}[!htbp]\centering
+				\caption{\footnotesize Proportion Voting 'Yes' by EP Group}
+				\label{fig:plot_3}
+				\includegraphics[width=.99\textwidth]{PS01_Fig3.pdf}
+				\begin{flushleft}
+					\footnotesize Notes: Yes rate for each individual MEP in the first five European Parliaments. Calculated as how many times they vote 'Yes' by total number of votes opened for them. 
+				\end{flushleft}
+			\end{figure}
+			\FloatBarrier
+		Can see rough grouping of MEP's in groups especially group S, C, G and V. Looking at how group tended to have MEP's with similar coordinate of NOMINATE factor or spread may give insights into groups cohesion or spread in parliament. 
+	\item Display the proportion voting \textit{Yes} per year by national party using a bar plot. \\
+ As there are over 100 National parties coded in the dataset, it made sense to read in the more descriptive 'Party Family' with 11 categories  corresponding to the NP code to better evaluate using a bar plot. Combining the NP family, and creating a average yes rate for each national party per EP to plot points as well as the average of these averages to create a bar for the 'family' average of all included National parties. I made a mixed type plot with bars as well as the NP average points to clearly visualise the difference over time within each family as well as compare the party family types. 
+			\lstinputlisting[language=R, firstline=295, lastline=345]{PS01_EB.R} \
+			\begin{figure}[!htbp]\centering
+				\caption{\footnotesize Average Yes Share National Party's MEPs, over the first five European parliments by Party Family Group}
+				\label{fig:plot_4}
+				\includegraphics[width=.99\textwidth]{PS01_Fig4.pdf}
+				\begin{flushleft}
+					\footnotesize Notes: Points represent a National Parties average 'Yes' proportion in that European Parliament. Bar represents the mean of the parties in the Party Family for each European Parliament. 
+				\end{flushleft}
+			\end{figure}
+			\FloatBarrier
+		Clearly there is a trend of the over the first five parliments of increasing the average yes rate. By viewing the points the size of groups can be inferred as well as the spread within the family of the national parties. 
+	\item For each EP group, calculate the average \textit{Yes} share per year and plot a line graph.\\
+	Similar to before creating a yes rate by EP group, to create an average for each group in each of the five EP's. Plotting as a line graph enables comparison of the groups change over time as well as between the groups. 
+			\lstinputlisting[language=R, firstline=348, lastline=381]{PS01_EB.R} \ 
+			\begin{figure}[!htbp]\centering
+				\caption{\footnotesize EP Group average 'Yes' share over the first five European Parliaments}
+				\label{fig:plot_5}
+				\includegraphics[width=.99\textwidth]{PS01_Fig5.pdf}
+			\end{figure}
+			\FloatBarrier
+		The clear rise of Average 'Yes' votes in the later EP's can be seen here. 
+\end{enumerate}
+
+
+\end{document}
