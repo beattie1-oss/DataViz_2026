@@ -1,3 +1,4 @@
+% Setup  %
 \documentclass[12pt,letterpaper]{article}
 \usepackage{graphicx,textcomp}
 \usepackage{natbib}
@@ -26,12 +27,32 @@
 \usetikzlibrary{arrows}
 \usepackage{multirow}
 \usepackage{xcolor}
+\usepackage{fancyvrb}
 \newcolumntype{.}{D{.}{.}{-1}}
 \newcolumntype{d}[1]{D{.}{.}{#1}}
 \definecolor{light-gray}{gray}{0.65}
 \usepackage{url}
 \usepackage{listings}
 \usepackage{color}
+\usepackage{etoolbox}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+\usepackage{placeins}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\lstset{
+	literate=
+	{á}{{\'a}}1
+	{é}{{\'e}}1
+	{í}{{\'i}}1
+	{ó}{{\'o}}1
+	{ú}{{\'u}}1
+	{ñ}{{\~n}}1
+	{ü}{{\"u}}1
+}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -60,6 +81,8 @@
 \newcommand{\Sref}[1]{Section~\ref{#1}}
 \newtheorem{hyp}{Hypothesis}
 
+
+
 \title{Problem Set 2}
 \date{Due: February 4, 2026}
 \author{Data Visualisation for Social Scientists}
@@ -76,7 +99,6 @@
 	
 	\vspace{.25cm}
 	\section*{Study of Religious Congregations in Switzerland}
-	
 The data for this problem set come from the	National Congregations Study Switzerland (NCSS), which was conducted in 2008–2009 and 2022–2023. The data provide information on organisational structure, staffing, finances, worship practices, youth and educational activities, social composition, external engagement, and inclusion norms. The data were collected using stratified random samples of congregations drawn from comprehensive censuses, with interviews completed by a single knowledgeable key informant in each congregation, most often the spiritual leader.
 
 \subsection*{Data Manipulation}
@@ -92,18 +114,108 @@ The data for this problem set come from the	National Congregations Study Switzer
 	\item 12-level religious classification (\texttt{TRAD12})
 	\item Total income in last fiscal year (\texttt{INCOME})
 \end{itemize}
-\item Filter the dataset so that you only include Christian, Jewish, and Muslim congregations (Chrétiennes, Juives, Musulmanes) using the \texttt{TRAD6} variable.
+	Load in data and clean itby selecting and making data structure clear with factors.
+	\lstinputlisting[language=R, firstline=66, lastline=84]{PS02_EB.R}
+	
+	
+\item Filter the dataset so that you only include Christian, Jewish, and Muslim congregations (Chr\'{e}tiennes, Juives, Musulmanes) using the \texttt{TRAD6} variable. 
+	\lstinputlisting[language=R, firstline=86, lastline=89]{PS02_EB.R}
+	
 \item Compute for the number of congregations by religious classification (\texttt{TRAD6}) in each year, as well as the mean and median total income in last fiscal year (\texttt{INCOME}) by religious classification and year.
-\item Create a categorical variable for called \texttt{AVG\_INCOME} that is binary in which 1 = "Above average or average income" and 0 = "Below average income", which indicates if a congregation is $\geq$ average income or $<$ average income among congregations that year.
+	Create a new variable that creates category summaries based on grouping the dataframe by greater religious classification and year. 
+	\lstinputlisting[language=R, firstline=92, lastline=102]{PS02_EB.R}
+	% latex table generated in R 4.5.1 by xtable 1.8-4 package
+	% Wed Feb  4 11:40:17 2026
+	\begin{table}[ht]
+		\centering
+		\begin{tabular}{rlrrrr}
+			\hline
+			& trad6 & year & total\_congregations & mean\_income & median\_income \\ 
+			\hline
+			1 & Chrétiennes & 2009 & 802 & 539942.35 & 200000.00 \\ 
+			2 & Chrétiennes & 2022 & 1172 & 474600.50 & 201000.00 \\ 
+			3 & Juives & 2009 &  18 & 330908.73 & 200000.00 \\ 
+			4 & Juives & 2022 &  13 & 2332500.00 & 115000.00 \\ 
+			5 & Musulmanes & 2009 &  64 & 62238.16 & 25000.00 \\ 
+			6 & Musulmanes & 2022 &  42 & 77941.18 & 42500.00 \\ 
+			\hline
+		\end{tabular}
+	\end{table}
+	Can see from this that clearly Christian is the biggest religious classification making up the majority of congregations, followed by Muslim and Jewish congregations (not the same as members). The number of Christian congregations grew from 2009 to 2022 (either due to sampling or real growth) whilst there were less reported congregations in both Jewish and Muslim communities. Considering income, mean is higher than the median for all the religions in both year, indicating a positive skew, with a few congregations with exceptionally high incomes compared to the majority. 
+	
+\item Create a categorical variable for called \texttt{AVG\_INCOME} that is binary in which 1 = "Above average or average income" and 0 = "Below average income", which indicates if a congregation is $\geq$ average income or $<$ average income among congregations that year. \\
+	
+	The idea here to create a new column for each congregation that is a binary indicator if they are above or below the average income for that year. By grouping the data set by year can use mutate to first create an average income value for each year added as a column before creating the binary variable. This uses casewhen to for each congregation check the income level against the year average and have a value of 1 or 0 depending on whether it is greater or lower. Printing the year average we can see that for 2009 rows the comparison is against 507530 Euros compared to 475588 Euros in 2022. 
+	\lstinputlisting[language=R, firstline=104, lastline=116]{PS02_EB.R}
+	\begin{verbatim}
+		  year year_avg_inc
+		1 2009     507530.1
+		2 2022     475588.1
+	\end{verbatim}
 \end{enumerate}
 
 \subsection*{Data Visualization}
-
+	Create base theme to start with for visualisations so that thematic elements can be more consistent.
+	\lstinputlisting[language=R, firstline=33, lastline=63]{PS02_EB.R}
+	\newpage
 \begin{enumerate}
-	\item Create a bar plot visualizing the proportion of congregations by 12-level religious classification (\texttt{TRAD12}) in each year.
-	\item Make a histogram detailing the number of official members using the 12-level religious classification (\texttt{TRAD12}) distinguishing between the 6-level religious classification (\texttt{TRAD6}) by year. Hint: Use \texttt{facet()} for year, \texttt{TRAD6} on the x-axis, and group/fill using \texttt{TRAD12} with the \texttt{position="dodge"}.
-	\item Display the distribution of congregations in 2022 above and below the average yearly income (\texttt{AVG\_INCOME}) in each region using ridge plots.
-	\item Create a boxplot of the number of official members by year and region.
+	\item Create a bar plot visualizing the proportion of congregations above and below the average income (\texttt{AVG\_INCOME}) in each year by 12-level religious classification (\texttt{TRAD12}). Hint: Use \texttt{facet()} for \texttt{YEAR}. \\
+	
+	First step is to check income. Can see there are NA's and some outliers with very high income levels compared to the rest. As we have already created a binary variable for average income between 0 and 1 the mean of the variable is the same as the proportion above the average price (i.e. a mean of 0.25 indicates 25\% of people are above average and 75\% are below average). Therefore we need to create a proportion statistic for each religious classification (trad12) for each year of how many congregations are above and below the yearly average.
+		\lstinputlisting[language=R, firstline=123, lastline=135]{PS02_EB.R}
+		To visualise the proportion above and below for each group and how it changes over the two years can use a proportion diverging graph.   
+		We can visualise the proportion of the congregation with each bar being 1 unit long and the position on the x axis indicating the proportion above/below average. Clearly the majority of groups have a higher proportion of the congregations below average, with Protestant and Roman Catholic congregations having the highest proportion above average both years. This is likely due to the skewed income distribution of congregations seen earlier that increases the average value away from where the majority of incomes lie. Comparing the subplots we can see that the overall distribution of proportions doesn't change drastically from 2009 to 2022, but looking at specific groups we can determine differences. For example with the Catholic orthodox congregations we can see the bar shifts lefts in 2022 from 2009, indicating a reduction in the number of congregations with an above average income. The opposite occurred for Protestants where there were more congregations in 2022 with above average income than in 2009.
+		\lstinputlisting[language=R, firstline=137, lastline=155]{PS02_EB.R}
+		
+		\begin{figure}[!htbp]\centering
+			\caption{\footnotesize Proportion of Congregations Above and Below the Average Income by Religious Classification and Year}
+			\label{fig:plot_1}
+			\includegraphics[width=.9\textwidth]{PS02_DV1.pdf}
+		\end{figure}
+		\FloatBarrier
+		
+		\vspace*{1cm}
+	\item Make a histogram using \texttt{geom\_col()} detailing the number of official members using the 12-level religious classification (\texttt{TRAD12}) distinguishing between the 6-level religious classification (\texttt{TRAD6}) in 2022. Hint: Use \texttt{facet()} for \texttt{TRAD6}, with \texttt{TRAD12} on the x-axis in addition to group/fill with the \texttt{position="dodge"}. \\
+		
+		Group the data set into only 2022 and remove congregations with NA member numbers. 
+		\lstinputlisting[language=R, firstline=161, lastline=165]{PS02_EB.R}
+		Make a histogram of the number of members separated by religious category. Using dodge2 as position of geom col bars can see histogram like thin bars of the congregation variance within the specific religious group. By faceting by larger religious categories we are able to distinguish Christian groups from Jewish and Islamic congregations more broadly. By making the scales free, only the relevant groups are plotted on the x-axis for each facet and by editing the appearance it looks like one separated bar graph rather than completely separate plots (allowing only one y axis scale and letting the Christian category subgroups appear more clear). Whilst the scale of the y-axis had to be reduced (otherwise unreadable the rest of the bars) which does eliminate some of the outliers the general pattern and trend of distribution can be seen as well as the scale of the members. 
+		\lstinputlisting[language=R, firstline=169, lastline=190]{PS02_EB.R}
+		
+		\begin{figure}[!htbp]\centering
+			\caption{\footnotesize 2022 Number of Offical Members in Swiss Congregations by Religious Classification}
+			\label{fig:plot_2}
+			\includegraphics[width=.9\textwidth]{PS02_DV2.pdf}
+		\end{figure}
+		\FloatBarrier
+		\vspace*{1cm}
+	\item Display the distribution of yearly income (\texttt{INCOME}) in 2022 for congregations in each region (\texttt{GDREGION}) using ridge plots. \\
+	
+		To use ridge plots to demonstrate the differences in income distribution between regions in 2022 first need to filter  by year and remove missing values, as well as reduce outliers by the very top quartile, as they were lessening the legibility of the graph and trends.  
+		\lstinputlisting[language=R, firstline=193, lastline=199]{PS02_EB.R}
+		Using GGridges to create the ridgeplot, specifying the y axis as region and the x axis as income we can see the density plot of each region. By setting the bandwidth to 1500 the aim was to see the general trend of the distribution but not so general as to overlook irregularities or peaks in the distribution. The range of the income was decided to include the peak at 1100000, but zoomed in enough to clearly see the spread. Tessin stands out at having a high density of low income congregations compared to the other regions. 
+		\lstinputlisting[language=R, firstline=202, lastline=220]{PS02_EB.R}
+		
+		\begin{figure}[!htbp]\centering
+			\caption{\footnotesize 2022 Regional distribution of congregation income in Switzerland}
+			\label{fig:plot_3}
+			\includegraphics[width=.99\textwidth]{PS02_DV3.pdf}
+		\end{figure}
+		\FloatBarrier
+		\vspace*{1cm}
+	\item Create a boxplot of the number of official members per congregation in 2022 by religious classification (\texttt{TRAD6}) and region (\texttt{GDREGION}). Hint: Use \texttt{facet()} for \texttt{GDREGION}. \\
+		Again filtering for 2022 and removing NA values. 
+		\lstinputlisting[language=R, firstline=222, lastline=227]{PS02_EB.R}
+		Boxplot of the number of members by classification and region, using group as x-axis category and regional subplots within them. The most difficult aspect to consider was the scale of the y axis due to the number of extreme values, the boxplots were minimised and it became very difficult to interpret. The decision to exclude these values but at 10000, where outliers are highlighted (giving indication of same trend) but allowing more the box details to be evident. 
+		We can see that Christian congregations have generally more members in each congregation, with greater variability of size including many outliers. Muslim congregations report a very low number of members in all regions whilst the there are high member Jewish congregations condensed within Zurich and the Region Lemanique regions. 
+		\lstinputlisting[language=R, firstline=230, lastline=245]{PS02_EB.R}
+		
+		\begin{figure}[!htbp]\centering
+			\caption{\footnotesize 2022 Number of Congregation Members by Religion and Region}
+			\label{fig:plot_4}
+			\includegraphics[width=.99\textwidth]{PS02_DV4.pdf}
+		\end{figure}
+		\FloatBarrier
 
 \end{enumerate}
 
