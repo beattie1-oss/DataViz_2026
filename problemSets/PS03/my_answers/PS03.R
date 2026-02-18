@@ -83,7 +83,7 @@ table(ces2015$age) #check age range looks accurate
 table(ces2015$cat_age) #view categories
 
 
-####  Data Visualisation #### 86
+####  Data Visualisation #### 
 # DV 1: Turnout rate by age group
 turnout_agegroup<- ces2015 %>%
   filter(!is.na(cat_age)) %>% #filter na age categories
@@ -140,9 +140,9 @@ plot2 <- ggplot(ideo_by_party, aes(x= p_selfplace, fill= vote_for)) +
   geom_hline(yintercept = 0, linewidth = 0.3) +
   facet_wrap(vars(vote_for), nrow = 5)+
   coord_cartesian(xlim = c(0,10)) +
-  scale_x_continuous(limits = c(0,10),
-                     breaks = 0:10,
-                     expand = c(0,0)) +
+  scale_x_continuous(limits = c(0,10), #limit
+                     breaks = 0:10, #add label for each integer
+                     expand = c(0,0)) + #hard boundary with no excess
   scale_fill_manual(values = c( #manually set colours to hexcodes extracted from wiki page
     "Liberal" = "#EA6D6A", #correct party colours for clarity
     "NDP" = "#F4A460",
@@ -152,19 +152,19 @@ plot2 <- ggplot(ideo_by_party, aes(x= p_selfplace, fill= vote_for)) +
   labs(x = "Left Wing                                  Center                                 Right Wing",
        title = "Left-Right Self-Placement of Individuals Indending to Vote for the Main Parties\n",
        caption = "2015 Canadian Election Survey political orientation score of intended party voters") +
-  guides(fill = "none") +
+  guides(fill = "none") + #remove clutered legend
   theme_classic(base_family = "CMU Sans Serif") +
   theme(
     axis.text.y = element_blank(), #rmv y axis
     axis.title.y = element_blank(),
     axis.line.y = element_blank(),
     axis.line.x = element_blank(),
-    axis.title.x = element_text(size = 13, face = "bold"),
-    strip.background = element_blank(),
+    axis.title.x = element_text(size = 13, face = "bold"), #bold the xaxis title
+    strip.background = element_blank(), #remove facet border
     axis.ticks.y = element_blank(),
-    plot.title = element_text(hjust = 0.5),
-    strip.text.x = element_text(size = 12, hjust = 0.5),
-    panel.spacing = unit(1, "cm") 
+    plot.title = element_text(hjust = 0.5), #center plot title
+    strip.text.x = element_text(size = 12, hjust = 0.5), #hjust = title in center of factet
+    panel.spacing = unit(1, "cm")  #add space between facets to make clear title and plot
   )
 ggsave("PS03_p2.pdf", plot2, device = cairo_pdf)
 
@@ -204,28 +204,28 @@ class(turnout_income$province)
 
 plot3 <- ggplot(turnout_income, aes(x = income_full, y = turnout, fill = income_full)) +
   geom_col(alpha = 0.75)+
-  facet_wrap(vars(province), ncol = 5) +
-  scale_y_continuous(breaks = seq(0, 400, by = 50), expand = c(0,5)) +
+  facet_wrap(vars(province), ncol = 5) + #facet by proving
+  scale_y_continuous(breaks = seq(0, 400, by = 50), expand = c(0,5)) + #specify axis amounts
   theme_classic(base_family = "CMU Sans Serif")+
   labs(y = "Turnout Count", fill = "Income Level",
        title = "Canadian Province Turnout Counts by Income Level", 
        caption = "Canadian Electoral Survey 2015. Total number of respondants who said 'Yes' when asked if they voted") +
-  scale_fill_eb() +
+  scale_fill_eb() + #use colours from earlier
   theme(
-    legend.position = "bottom",
+    legend.position = "bottom", #move to bottom to have more horizontal space
     legend.text = element_text(size = 8),
     axis.text.x = element_blank(),
     axis.title.x = element_blank(),
     axis.line.x = element_line(colour = "black"), 
     axis.ticks.x = element_blank(),
-    strip.text = element_text(size = 6.5, colour = "white", face = "bold"),
+    strip.text = element_text(size = 6.5, colour = "white", face = "bold"), #facet title text white
     strip.background = element_rect(fill = "navy", colour = "navy"), #blue box white text
-    panel.border = element_rect(color = "navy", fill = NA, linewidth = 0.4),
+    panel.border = element_rect(color = "navy", fill = NA, linewidth = 0.4), #add distinguishing box around each plot
     panel.grid.major.y = element_line(colour = "#e6e9ff", linewidth =  0.2), #very light grid
     panel.grid.major.x = element_line(colour = "#e6e9ff", linewidth =  0.2),
     legend.background = element_rect(fill = "white",colour = "grey30", size = 0.5, linetype = "solid")
   ) +
-  guides(fill = guide_legend(nrow = 2))
+  guides(fill = guide_legend(nrow = 2)) #2 rows for legend to condense long fill names
 ggsave("PS03_p3.pdf", plot3, device = cairo_pdf)
 
 # DV 4: Create customisable theme
@@ -239,14 +239,14 @@ theme_ellen <- function(...) {
                                   color = "grey70", hjust = 0),
       #Backgrounds 
       # Grid
-      panel.background = element_rect(fill = "white", colour = NA), 
+      panel.background = element_rect(fill = "white", colour = NA), #clean base to work from
       panel.border = element_blank(), 
       panel.grid = element_blank(), 
       panel.grid.minor = element_blank(), 
       
       #Axis
       axis.title = element_text(family = "CMU Sans Serif", size = 12), #title font
-      axis.line.x = element_line(linewidth = 0.4), #axis lines
+      axis.line.x = element_line(linewidth = 0.4), #axis lines tin
       axis.line.y = element_line(linewidth = 0.4),
       axis.text = element_text(colour = "black", size = 10), #axis text change
       axis.ticks.x = element_line(colour = "black", linewidth = 0.75),
@@ -276,18 +276,18 @@ plot4 <- plot1 + theme_ellen() + #ironically done most of this in first plt
        subtitle = "Percentage of respondants proporting to have voted in the election by age group",
        caption = "Source: Canadian Election Study 2015 Post-Election Poll. \n Poor quality participants and those with missing or irregular responses were removed.") +
   theme(
-     axis.text.x = element_blank(),
+     axis.text.x = element_blank(), #remove excess cluter
      axis.line.x = element_blank(),
      axis.title.x = element_blank(),
      axis.ticks.x = element_blank()
    ) +
   scale_fill_manual(values = c("#fdd735", "#ffb14e", "#fa8775", "#ea5f94", "#cd34b5", "#9d02d7", "#0d0dca")) +
-  scale_y_continuous(limits = c(0,1.3), expand = c(0,0)) +
+  scale_y_continuous(limits = c(0,1.3), expand = c(0,0)) + #make space for text annotation
   geom_text(
-    aes(label = scales::percent(turnout, accuracy = 1)),
-    hjust = -0.1) +
+    aes(label = scales::percent(turnout, accuracy = 1)), #turnout proportion as a percentage
+    hjust = -0.1) + #slightly to the right of bar
   annotate(geom = "segment", x = 1, xend = 7, y = .99, yend = 1.1, colour = "darkblue", 
-           arrow = arrow(angle = 15, length = unit(0.5, "lines"))) +
+           arrow = arrow(angle = 15, length = unit(0.5, "lines"))) + #add arrow angling trend
   annotate(geom = "text", x = 3, y = 1.04, label = "Turnout rate \n increases steadily \n by age group", hjust = 0, colour = "darkblue", size = 3.5)
-  
+  # add text describing key pattern
 ggsave("PS03_p4.pdf", plot4, device = cairo_pdf)

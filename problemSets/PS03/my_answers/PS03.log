@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  18 FEB 2026 19:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  18 FEB 2026 20:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -999,7 +999,7 @@ Package pdftex.def Info: PS03_p1.pdf  used on input line 123.
 
 pdfTeX warning: pdflatex.exe (file ./PS03_p2.pdf): PDF inclusion: found PDF ver
 sion <1.7>, but at most version <1.5> allowed
-<PS03_p2.pdf, id=147, 505.89pt x 505.89pt>
+<PS03_p2.pdf, id=149, 505.89pt x 505.89pt>
 File: PS03_p2.pdf Graphic file (type pdf)
 <use PS03_p2.pdf>
 Package pdftex.def Info: PS03_p2.pdf  used on input line 136.
@@ -1008,7 +1008,7 @@ Package pdftex.def Info: PS03_p2.pdf  used on input line 136.
 
 pdfTeX warning: pdflatex.exe (file ./PS03_p3.pdf): PDF inclusion: found PDF ver
 sion <1.7>, but at most version <1.5> allowed
-<PS03_p3.pdf, id=234, 505.89pt x 505.89pt>
+<PS03_p3.pdf, id=238, 505.89pt x 505.89pt>
 File: PS03_p3.pdf Graphic file (type pdf)
 <use PS03_p3.pdf>
 Package pdftex.def Info: PS03_p3.pdf  used on input line 148.
@@ -1027,7 +1027,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 163--164
 
 pdfTeX warning: pdflatex.exe (file ./PS03_p4.pdf): PDF inclusion: found PDF ver
 sion <1.7>, but at most version <1.5> allowed
-<PS03_p4.pdf, id=327, 505.89pt x 505.89pt>
+<PS03_p4.pdf, id=330, 505.89pt x 505.89pt>
 File: PS03_p4.pdf Graphic file (type pdf)
 <use PS03_p4.pdf>
 Package pdftex.def Info: PS03_p4.pdf  used on input line 169.
@@ -1045,8 +1045,8 @@ Package rerunfilecheck Info: File `PS03.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 27962 strings out of 474486
- 489829 string characters out of 5743755
+ 27966 strings out of 474486
+ 489889 string characters out of 5743755
  2307542 words of memory out of 5000000
  49459 multiletter control sequences out of 15000+600000
  573900 words of font info for 85 fonts, out of 8000000 for 9000
@@ -1064,9 +1064,9 @@ eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\ellen\AppData\Loca
 l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\ellen\AppDat
 a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk><C:/Users/ellen/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on PS03.pdf (13 pages, 268614 bytes).
+Output written on PS03.pdf (13 pages, 271193 bytes).
 PDF statistics:
- 738 PDF objects out of 1000 (max. 8388607)
- 265 named destinations out of 1000 (max. 500000)
+ 742 PDF objects out of 1000 (max. 8388607)
+ 269 named destinations out of 1000 (max. 500000)
  33 words of extra memory for PDF output out of 10000 (max. 10000000)
 

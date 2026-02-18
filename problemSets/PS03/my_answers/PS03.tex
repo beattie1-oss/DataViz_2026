@@ -116,7 +116,7 @@ ces2015 <- ces2015 |> filter(discard == "Good quality")
 	First need to create statistics summary for turnout for each age group created earlier. 
 	\lstinputlisting[language=R, firstline=87, lastline= 91]{PS03.R}
 	Plot using a bar chart. As age categories were already in ascending order when plotted they remain so. Add a second y-axis for fun to see both percentage and proportion forms.  
-	\lstinputlisting[language=R, firstline=93, lastline= 109]{PS03.R} 
+	\lstinputlisting[language=R, firstline=93, lastline= 111]{PS03.R} 
 	
 	\begin{figure}[!htbp]\centering
 		\label{fig:plot_1}
@@ -129,7 +129,7 @@ ces2015 <- ces2015 |> filter(discard == "Good quality")
 	Data exploration on the structure and values within key variables. Transform relevant variables into correct form before removing missing values and specifying only the main parties to be kept. Then ordering the party intentions by the mean value of the left-right placement so when plotted it is easier to see the pattern. 
 	\lstinputlisting[language=R, firstline=113, lastline= 134]{PS03.R} 
 	Plot using faceted density plots with only one column to line up the x-axis for comparison. Looks similar to ggridge density plots but the facet title is in the center of each for a cleaner look. The hexcode colours for each party were extracted from the Wikipedia page. The bin-width was selected to see a semi-smooth density (due to integer scores) but enough to see the general trend. As adding annotations would appear for every facet, using spaces within the x-axis title (that appears once) to orient the left-right labels on the axis. 
-	\lstinputlisting[language=R, firstline=137, lastline= 167]{PS03.R} 
+	\lstinputlisting[language=R, firstline=137, lastline= 169]{PS03.R} 
 	
 	\begin{figure}[!htbp]\centering
 		\label{fig:plot_1}
