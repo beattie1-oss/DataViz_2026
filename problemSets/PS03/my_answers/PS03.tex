@@ -1,0 +1,176 @@
+% Setup  %
+\documentclass[12pt,letterpaper]{article}
+\usepackage{graphicx,textcomp}
+\usepackage{natbib}
+\usepackage{setspace}
+\usepackage{fullpage}
+\usepackage{color}
+\usepackage[reqno]{amsmath}
+\usepackage{amsthm}
+\usepackage{fancyvrb}
+\usepackage{amssymb,enumerate}
+\usepackage[all]{xy}
+\usepackage{endnotes}
+\usepackage{lscape}
+\newtheorem{com}{Comment}
+\usepackage{float}
+\usepackage{hyperref}
+\newtheorem{lem} {Lemma}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{defn}{Definition}
+\newtheorem{cor}{Corollary}
+\newtheorem{obs}{Observation}
+\usepackage[compact]{titlesec}
+\usepackage{dcolumn}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
+\definecolor{light-gray}{gray}{0.65}
+\usepackage{url}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{tabularx}
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep=0pt }
+\makeatother
+\usepackage{placeins}
+\usepackage{listings}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+\lstset{style=mystyle}
+\newcommand{\Sref}[1]{Section~\ref{#1}}
+\newtheorem{hyp}{Hypothesis}
+
+\title{Problem Set 3}
+\date{Due: February 18, 2026}
+\author{Data Visualisation for Social Scientists}
+
+\begin{document}
+	\maketitle
+	
+	\section*{Instructions}
+	\begin{itemize}
+	\item Please show your work! You may lose points by simply writing in the answer. If the problem requires you to execute commands in \texttt{R}, please include the code you used to get your answers. Please also include the \texttt{.R} file that contains your code. If you are not sure if work needs to be shown for a particular problem, please ask.
+\item Your homework should be submitted electronically on GitHub.
+\item This problem set is due before 23:59 on Wednesday February 18, 2026. No late assignments will be accepted.
+	\end{itemize}
+	
+	\vspace{.25cm}
+	\section*{Canadian Election Study}
+	
+The data for this problem set come from the	Canadian Election Study (\href{https://ces-eec.sites.olt.ubc.ca/files/2017/04/CES2015_Combined_Data_Codebook.pdf}{CES})  in 2015. The main purpose of the study is to give a comprehensive picture of the Canadian election: why people vote as they do, what changes during campaigns and across elections, and how Canadian voting compares with that in other democracies.
+
+\subsection*{Data Manipulation}
+
+\begin{enumerate}
+\item Load the CES .csv file from \href{https://raw.githubusercontent.com/ASDS-TCD/DataViz_2026/refs/heads/main/datasets/CES2015.csv}{GitHub} into your global environment. Filter respondents to only include "high quality" participants: 
+\begin{verbatim}
+ces2015 <- ces2015 |> filter(discard == "Good quality")
+\end{verbatim}
+
+\lstinputlisting[language=R, firstline=51, lastline= 53]{PS03.R}
+\item Filter the dataset to those participants that answered the question about voting for the past election using \texttt{p\_voted}. Consider respondents who gave a "Yes" answer as having voted, while “No” as not having voted. Treat “Don’t know” and “Refused” as missing. 
+\lstinputlisting[language=R, firstline=56, lastline= 60]{PS03.R}
+
+\item Create an age variable and group into categories (e.g., $<$30, 30-44, 45-64, 65+). Year of birth is in age (four‑digit year).
+
+\lstinputlisting[language=R, firstline=66, lastline= 83]{PS03.R}
+\end{enumerate}
+
+\subsection*{Data Visualization}
+	Create random palette to use for some of the graphs:
+	\lstinputlisting[language=R, firstline=32, lastline= 39]{PS03.R}
+
+\begin{enumerate}
+	\item Plot turnout rate by age group.
+	First need to create statistics summary for turnout for each age group created earlier. 
+	\lstinputlisting[language=R, firstline=87, lastline= 91]{PS03.R}
+	Plot using a bar chart. As age categories were already in ascending order when plotted they remain so. Add a second y-axis for fun to see both percentage and proportion forms.  
+	\lstinputlisting[language=R, firstline=93, lastline= 109]{PS03.R} 
+	
+	\begin{figure}[!htbp]\centering
+		\label{fig:plot_1}
+		\includegraphics[width=.9\textwidth]{PS03_p1.pdf}
+	\end{figure}
+	\FloatBarrier
+	
+	
+	\item Create a density plot of ideology by party, restricting your sample to respondents with non‑missing left–right self‑placement (0–10 scale) and those that intended to vote for a main party (e.g., Liberal, Conservative, NDP, Bloc in Quebec, and Green). \newline
+	Data exploration on the structure and values within key variables. Transform relevant variables into correct form before removing missing values and specifying only the main parties to be kept. Then ordering the party intentions by the mean value of the left-right placement so when plotted it is easier to see the pattern. 
+	\lstinputlisting[language=R, firstline=113, lastline= 134]{PS03.R} 
+	Plot using faceted density plots with only one column to line up the x-axis for comparison. Looks similar to ggridge density plots but the facet title is in the center of each for a cleaner look. The hexcode colours for each party were extracted from the Wikipedia page. The bin-width was selected to see a semi-smooth density (due to integer scores) but enough to see the general trend. As adding annotations would appear for every facet, using spaces within the x-axis title (that appears once) to orient the left-right labels on the axis. 
+	\lstinputlisting[language=R, firstline=137, lastline= 167]{PS03.R} 
+	
+	\begin{figure}[!htbp]\centering
+		\label{fig:plot_1}
+		\includegraphics[width=.9\textwidth]{PS03_p2.pdf}
+	\end{figure}
+	\FloatBarrier
+	
+	\item Produce histogram counts of turnout by income (\texttt{income\_full}), faceted by province. \\
+	Key data manipulation here to clean data and get clear factors for income  and province (labelled correctly). Removing missing values, before ordering income by income level (starting at lowest category) and province by size (i.e. by length when grouped) that will order the facets when plotting. Then creating a summary statistic of turnout (using yes from before) with the sum (for raw count rather than average)for income level per province to plot. 
+	\lstinputlisting[language=R, firstline=172, lastline= 203]{PS03.R} 
+	When plotting chose 5 columns as 10 categories for symmetry and ease of comparison, wrapping by province. Removing the messy elements like x-axis labels and relying on the legend for category interpretation was decided as the levels are already ordered. As
+	\lstinputlisting[language=R, firstline=205, lastline= 229]{PS03.R} 
+	
+	\begin{figure}[!htbp]\centering
+		\label{fig:plot_1}
+		\includegraphics{PS03_p3.pdf}
+	\end{figure}
+	\FloatBarrier
+	
+	
+	
+	\item Create your own reusable custom theme. Apply your theme to one of the previous plots and add:
+	\begin{enumerate}
+		\item An improved title summarizing the main substantive takeaway.
+		\item A more informative subtitle describing the sample and variables.
+		\item A caption noting data source, weighting, and key coding decisions.
+		\item At least one direct annotation using \texttt{ggrepel} that calls out a key pattern.
+	\end{enumerate}
+	Create work in progress theme. 
+	\lstinputlisting[language=R, firstline=231, lastline= 270]{PS03.R} 
+	Now add it to first graph and try to make a better visualisation. Flip the coordinates, added more informative titles and captions, selected a more cohesive and appealing palette (slightly gradiating colours is okay as categories are ordered). Rather than having an axis with percentages add the actual average turnout percentage to the right of the horizontal bar to make it clearer. Annotate with arrow and text additionally to explain trend. \\
+	
+	\lstinputlisting[language=R, firstline=272, lastline= 293]{PS03.R} 
+	
+		\begin{figure}[!htbp]\centering
+		\label{fig:plot_1}
+		\includegraphics[width=.9\textwidth]{PS03_p4.pdf}
+	\end{figure}
+	\FloatBarrier
+
+\end{enumerate}
+
+
+\end{document}
