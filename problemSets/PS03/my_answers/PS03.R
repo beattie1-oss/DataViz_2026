@@ -273,7 +273,7 @@ theme_ellen <- function(...) {
 plot4 <- plot1 + theme_ellen() + #ironically done most of this in first plt
   coord_flip() +
   labs(title = "Turnout rate increased with Age in the 2015 Canadian Election",
-       subtitle = "Percentage of respondants proporting to have voted in the 2015 election by age group.",
+       subtitle = "Percentage of respondants proporting to have voted in the election by age group",
        caption = "Source: Canadian Election Study 2015 Post-Election Poll. \n Poor quality participants and those with missing or irregular responses were removed.") +
   theme(
      axis.text.x = element_blank(),
@@ -288,6 +288,6 @@ plot4 <- plot1 + theme_ellen() + #ironically done most of this in first plt
     hjust = -0.1) +
   annotate(geom = "segment", x = 1, xend = 7, y = .99, yend = 1.1, colour = "darkblue", 
            arrow = arrow(angle = 15, length = unit(0.5, "lines"))) +
-  annotate(geom = "text", x = 3, y = 1.04, label = "Turnout rate \n increases gradually with age", hjust = 0, colour = "darkblue", size = 4)
+  annotate(geom = "text", x = 3, y = 1.04, label = "Turnout rate \n increases steadily \n by age group", hjust = 0, colour = "darkblue", size = 3.5)
   
 ggsave("PS03_p4.pdf", plot4, device = cairo_pdf)

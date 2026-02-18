@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  18 FEB 2026 12:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  18 FEB 2026 19:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1046,7 +1046,7 @@ Package rerunfilecheck Info: File `PS03.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  27962 strings out of 474486
- 489939 string characters out of 5743755
+ 489829 string characters out of 5743755
  2307542 words of memory out of 5000000
  49459 multiletter control sequences out of 15000+600000
  573900 words of font info for 85 fonts, out of 8000000 for 9000
@@ -1064,7 +1064,7 @@ eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\ellen\AppData\Loca
 l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\ellen\AppDat
 a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk><C:/Users/ellen/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on PS03.pdf (13 pages, 268795 bytes).
+Output written on PS03.pdf (13 pages, 268614 bytes).
 PDF statistics:
  738 PDF objects out of 1000 (max. 8388607)
  265 named destinations out of 1000 (max. 500000)
