@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  8 MAR 2026 21:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  8 MAR 2026 21:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1001,11 +1001,14 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 \openout8 = `Final_Project.toc'.
 
 
-Overfull \hbox (13.2297pt too wide) in paragraph at lines 90--91
+Overfull \hbox (13.2297pt too wide) in paragraph at lines 91--92
 \T1/cmr/m/n/12 sources, stan-dard-ises and con-sol-i-dates in-di-ca-tor in-for-
 ma-tion from Stan-ford's AI In-dex, OECD.ai
  []
 
+[1
+
+{C:/Users/ellen/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 (C:\Users\ellen\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
@@ -1015,14 +1018,11 @@ File: lstlang2.sty 2023/02/27 1.9 listings language file
 (C:\Users\ellen\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang3.sty
 File: lstlang3.sty 2023/02/27 1.9 listings language file
 )
-[1
-
-{C:/Users/ellen/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 96.
+nput line 97.
 
 (Final_Project_EB.R) (Final_Project_EB.R) (Final_Project_EB.R [2])
-Underfull \hbox (badness 10000) in paragraph at lines 108--109
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
 
  []
 
@@ -1030,13 +1030,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure1.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure1.pdf, id=132, 433.62pt x 289.08pt>
+<figures/figure1.pdf, id=148, 433.62pt x 289.08pt>
 File: figures/figure1.pdf Graphic file (type pdf)
 <use figures/figure1.pdf>
-Package pdftex.def Info: figures/figure1.pdf  used on input line 114.
+Package pdftex.def Info: figures/figure1.pdf  used on input line 115.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 123--124
+Underfull \hbox (badness 10000) in paragraph at lines 124--125
 
  []
 
@@ -1044,13 +1044,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 123--124
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure2.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure2.pdf, id=187, 433.62pt x 289.08pt>
+<figures/figure2.pdf, id=213, 433.62pt x 289.08pt>
 File: figures/figure2.pdf Graphic file (type pdf)
 <use figures/figure2.pdf>
-Package pdftex.def Info: figures/figure2.pdf  used on input line 129.
+Package pdftex.def Info: figures/figure2.pdf  used on input line 130.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 [6]
-Underfull \hbox (badness 10000) in paragraph at lines 139--140
+Underfull \hbox (badness 10000) in paragraph at lines 140--141
 
  []
 
@@ -1058,13 +1058,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--140
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure3.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure3.pdf, id=296, 433.62pt x 289.08pt>
+<figures/figure3.pdf, id=322, 433.62pt x 289.08pt>
 File: figures/figure3.pdf Graphic file (type pdf)
 <use figures/figure3.pdf>
-Package pdftex.def Info: figures/figure3.pdf  used on input line 145.
+Package pdftex.def Info: figures/figure3.pdf  used on input line 146.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--157
+Underfull \hbox (badness 10000) in paragraph at lines 157--158
 
  []
 
@@ -1072,13 +1072,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 156--157
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure4.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure4.pdf, id=355, 433.62pt x 289.08pt>
+<figures/figure4.pdf, id=381, 433.62pt x 289.08pt>
 File: figures/figure4.pdf Graphic file (type pdf)
 <use figures/figure4.pdf>
-Package pdftex.def Info: figures/figure4.pdf  used on input line 162.
+Package pdftex.def Info: figures/figure4.pdf  used on input line 163.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 [11]
-Underfull \hbox (badness 10000) in paragraph at lines 172--173
+Underfull \hbox (badness 10000) in paragraph at lines 173--174
 
  []
 
@@ -1086,13 +1086,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 172--173
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure5.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure5.pdf, id=461, 433.62pt x 289.08pt>
+<figures/figure5.pdf, id=487, 433.62pt x 289.08pt>
 File: figures/figure5.pdf Graphic file (type pdf)
 <use figures/figure5.pdf>
-Package pdftex.def Info: figures/figure5.pdf  used on input line 178.
+Package pdftex.def Info: figures/figure5.pdf  used on input line 179.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 [14 <./figures/figure5.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 191--193
+Underfull \hbox (badness 10000) in paragraph at lines 192--194
 
  []
 
@@ -1100,13 +1100,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 191--193
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure6.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure6.pdf, id=535, 433.62pt x 289.08pt>
+<figures/figure6.pdf, id=561, 433.62pt x 289.08pt>
 File: figures/figure6.pdf Graphic file (type pdf)
 <use figures/figure6.pdf>
-Package pdftex.def Info: figures/figure6.pdf  used on input line 198.
+Package pdftex.def Info: figures/figure6.pdf  used on input line 199.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 [16 <./figures/figure6.pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 209--210
+Underfull \hbox (badness 10000) in paragraph at lines 210--211
 
  []
 
@@ -1114,37 +1114,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 209--210
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure7.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure7.pdf, id=608, 433.62pt x 289.08pt>
+<figures/figure7.pdf, id=634, 433.62pt x 289.08pt>
 File: figures/figure7.pdf Graphic file (type pdf)
 <use figures/figure7.pdf>
-Package pdftex.def Info: figures/figure7.pdf  used on input line 215.
+Package pdftex.def Info: figures/figure7.pdf  used on input line 216.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
 [18 <./figures/figure7.pdf>] [19]
-<Final_Figure.pdf, id=653, 2392.87677pt x 3383.03302pt>
+<Final_Figure.pdf, id=679, 2392.87677pt x 3383.03302pt>
 File: Final_Figure.pdf Graphic file (type pdf)
 <use Final_Figure.pdf>
-Package pdftex.def Info: Final_Figure.pdf  used on input line 228.
+Package pdftex.def Info: Final_Figure.pdf  used on input line 229.
 (pdftex.def)             Requested size: 2392.87096pt x 3383.02481pt.
-<Final_Figure.pdf, id=655, page=1, 2392.87677pt x 3383.03302pt>
+<Final_Figure.pdf, id=681, page=1, 2392.87677pt x 3383.03302pt>
 File: Final_Figure.pdf Graphic file (type pdf)
 <use Final_Figure.pdf, page 1>
-Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 228.
+Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 229.
 (pdftex.def)             Requested size: 2392.87096pt x 3383.02481pt.
 File: Final_Figure.pdf Graphic file (type pdf)
 <use Final_Figure.pdf, page 1>
-Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 228.
+Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 229.
 (pdftex.def)             Requested size: 562.28961pt x 794.96127pt.
 File: Final_Figure.pdf Graphic file (type pdf)
 <use Final_Figure.pdf, page 1>
-Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 228.
+Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 229.
 (pdftex.def)             Requested size: 562.28961pt x 794.96127pt.
 File: Final_Figure.pdf Graphic file (type pdf)
 <use Final_Figure.pdf, page 1>
-Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 228.
+Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 229.
 (pdftex.def)             Requested size: 562.28961pt x 794.96127pt.
 File: Final_Figure.pdf Graphic file (type pdf)
 <use Final_Figure.pdf, page 1>
-Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 228.
+Package pdftex.def Info: Final_Figure.pdf , page1 used on input line 229.
 (pdftex.def)             Requested size: 562.28961pt x 794.96127pt.
  [20
 
@@ -1154,14 +1154,14 @@ LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Final_Project.out' has not changed.
-(rerunfilecheck)             Checksum: 6596BC99E170A6D271F6C3B4D2FF7BE3;2894.
+(rerunfilecheck)             Checksum: 52336212D18D7EC84D0736FA98CC1ADB;3565.
  ) 
 Here is how much of TeX's memory you used:
- 28981 strings out of 474486
- 507265 string characters out of 5743755
+ 28996 strings out of 474486
+ 507431 string characters out of 5743755
  2438542 words of memory out of 5000000
- 50328 multiletter control sequences out of 15000+600000
- 573250 words of font info for 83 fonts, out of 8000000 for 9000
+ 50337 multiletter control sequences out of 15000+600000
+ 574026 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,17n,93p,3247b,2066s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\ellen\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx
@@ -1170,16 +1170,17 @@ Here is how much of TeX's memory you used:
 /dpi600\ecrm1000.pk> <C:\Users\ellen\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
 pen/ec/dpi600\ecrm0600.pk> <C:\Users\ellen\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecrm1200.pk> <C:\Users\ellen\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\ellen\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\ellen\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk><C:/Users/ellen/AppData/Local
-/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/ellen/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Users/e
-llen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-
-Output written on Final_Project.pdf (20 pages, 765306 bytes).
+ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\ellen\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\ecbx1728.pk> <C:\Users\ellen\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\ellen\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk><C:/Users/ellen/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/elle
+n/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/U
+sers/ellen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx1
+0.pfb>
+Output written on Final_Project.pdf (20 pages, 781598 bytes).
 PDF statistics:
- 1205 PDF objects out of 1440 (max. 8388607)
- 400 named destinations out of 1000 (max. 500000)
- 119 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1270 PDF objects out of 1440 (max. 8388607)
+ 405 named destinations out of 1000 (max. 500000)
+ 159 words of extra memory for PDF output out of 10000 (max. 10000000)
 

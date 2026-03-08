@@ -80,17 +80,18 @@
 	\maketitle
 	
 \tableofcontents
+\vspace*{1cm}
 	
-\section*{Executive Summary}
+\section{Executive Summary}
 This project aims to investigate how the United Kingdom measures up in the development and integration of Artificial Intelligence (AI). Through the use of visualisations I will explore how the UK compares to other countries on the world stage, specifically in terms of economic development, public opinion and ethical/responsible practices and governance. By visualising the data I aim to gain key insights into the topic and capture a snapshot of the current state of the UK with regards to AI.
 
 
-\section*{Data Background}
+\section{Data Background}
 
 The data used in this project is from the a Global Artificial Intelligence Indicator Database (GAID) 1998-2025, sourced from the \href{https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/QYLYSA}{Harvard Dataverse}. This longitudinal panel dataset sources, standardises and consolidates indicator information from Stanford's AI Index, OECD.ai and the Global Index on Responsible AI (GIRAI). It contains information from 214 countries, across 28 years with data on 24,323 unique metrics. There is varying levels of coverage across the data, and the metrics are grouped into key source categories such as Economy, Education, Public Opinion etc. There is a comprehensive codebook accessible with detailed descriptions of the topics, specific metrics and the units of measurement. 
 
 
-\section*{Data Cleaning}
+\section{Data Cleaning}
 
 After downloading and importing the CSV file, I explored the underlying data structure. The data was provided in long form, making it easier to filter and clean for plotting each individual figure. Packages were loaded along with the data.  
 	\lstinputlisting[language=R, firstline=26, lastline= 30]{Final_Project_EB.R}  
@@ -101,7 +102,7 @@ For simplicity and consistency I created a base theme to apply to all the figure
 
 
 
-\section*{Individual Figures}
+\section{Individual Figures}
 \vspace{1cm}
 \subsection{Figure 1: Plot of AI Vibrancy Scores Economy vs R{\&}D}
 
@@ -222,7 +223,7 @@ The UK has a moderately high Human Rights and AI score (>60) yet a less then hal
 
 
 \vspace{1cm}
-\section*{Final Figure}
+\section{Final Figure}
 Final Figure was compiled on separate txt file and uploaded as a final pdf.
 \newpage
 \includepdf[pages=-]{Final_Figure.pdf}
