@@ -1,0 +1,433 @@
+###### Data Visualisation Final Project ######
+# Ellen Beattie
+#### Set up ####
+
+# Remove objects
+rm(list=ls())
+
+# Detach all libraries
+detachAllPackages <- function() {
+  basic.packages <- c("package:stats", "package:graphics", "package:grDevices", "package:utils", "package:datasets", "package:methods", "package:base")
+  package.list <- search()[ifelse(unlist(gregexpr("package:", search()))==1, TRUE, FALSE)]
+  package.list <- setdiff(package.list, basic.packages)
+  if (length(package.list)>0)  for (package in package.list) detach(package,  character.only=TRUE)
+}
+detachAllPackages()
+
+# Load libraries
+pkgTest <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[,  "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg,  dependencies = TRUE)
+  sapply(pkg,  require,  character.only = TRUE)
+}
+
+# Load any necessary packages
+lapply(c("dplyr","tidyverse", "ggplot2", "readr", "readxl", "showtext", "purrr", 
+         "ggridges", "ggdist", "xtable", "ggrepel", "extrafont", "WDI", "ggtext", 
+         "ggdist", "forecats", "patchwork",  "sf", "WDI", "regions", "tidytext", 
+         "gutenbergr"),  pkgTest)
+loadfonts(device = "win")
+# Set working directory for current folder
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+getwd()
+
+
+#### Creating Base Theme ####
+theme_ellen <- function(...) {
+  theme_classic(base_size = 10, base_family = "CMU Sans Serif") + 
+    theme(
+      # Titles
+      plot.title = element_text(face = "bold", size = rel(1.3)),
+      plot.subtitle = element_text(face = "plain", size = 9, color = "grey50"),
+      plot.caption = element_text(face = "italic", size = rel(0.7), 
+                                  color = "grey60", hjust = 0),
+      #Backgrounds 
+      # Grid
+      panel.background = element_rect(fill = "white", colour = NA), #clean base to work from
+      panel.border = element_blank(), 
+      panel.grid = element_blank(), 
+      panel.grid.minor = element_blank(), 
+      
+      #Axis
+      axis.title = element_text(family = "CMU Sans Serif", size = 10), #title font
+      axis.line.x = element_line(linewidth = 0.4), #axis lines tin
+      axis.line.y = element_line(linewidth = 0.4),
+      axis.text = element_text(colour = "black", size = 8), #axis text change
+      axis.ticks.x = element_line(colour = "black", linewidth = 0.75),
+      
+      #Facets
+      strip.background = element_blank(),
+      strip.text = element_text(size = 11),
+      
+      #Legend
+      legend.title = element_text(family = 'CMU Sans Serif', size = 10, colour = 'black'), #legend
+      legend.text =  element_text(family = 'CMU Sans Serif', size = 8, colour = 'black'),# font change
+      legend.key.height = unit(1, "lines"),#spacing
+      legend.key.width = unit(1, "lines"), 
+      legend.spacing.y = unit(1, "lines"),
+      legend.background = element_rect( 
+        fill = NA,
+        colour = "grey60", #make box around legend to align it
+        size = 0.5,
+        linetype = "solid")
+    )
+} 
+
+
+
+#### Load data ####
+df <- read.csv("MASTER_AI_DATA_COMPILATION_FINAL.csv")
+uk <- "United Kingdom"
+
+
+#### Figure 1: AI Vibrancy Economy vs R&D
+AI_vib_scores_wide <- df %>% 
+  filter(Source_Category == "Global AI Vibrancy Tool",
+         Year == 2021, #latest year updated
+         Metric %in% c(
+           "AI Vibrancy Index Pillar Score: Economy (0-100)",                 
+           "AI Vibrancy Index Pillar Score: Research and Development (0-100)")) %>%
+  select(Country, Metric, Value) %>% #rid excess columns
+  pivot_wider(
+    names_from = Metric, 
+    values_from = Value) %>%
+  rename(
+    `Economy` = `AI Vibrancy Index Pillar Score: Economy (0-100)`,
+    `R&D` = `AI Vibrancy Index Pillar Score: Research and Development (0-100)`) %>%
+  mutate(
+    Highlight = ifelse(Country == "United Kingdom", "UK", "Other")) #for colour distinction
+
+figure1 <- ggplot(AI_vib_scores_wide, aes(x = Economy, y = `R&D`, color = Highlight)) +
+  geom_point(size = 1.5, alpha = 1) + #larger points
+  geom_text_repel(aes(label = Country), size = 3, show.legend = FALSE, #text removing legend
+                  family = 'CMU Sans Serif', segment.color = NA) + #specifying same font 
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "grey90") +  # 45 degree line
+  scale_x_continuous(limits = c(0, 80),expand = c(0,0)) + #to see cluster more clearly
+  scale_y_continuous(limits = c(0, 80),expand = c(0,0)) +
+  scale_color_manual(values = c("UK" = "#fd3838", "Other" = "#4b6cf4")) + #differentiate UK
+  guides(colour = "none") + #remove highlight legend
+  theme_ellen()+ #add theme
+  labs(
+    title = "AI Vibrancy: Economy vs Research and Development by Country",
+    subtitle = "Economy and R&D pillar scores for a given country on a 0-100 scale \n measure the normalised aggregate performance of AI vibrancy metrics",
+    x = "Economy Score",
+    y = "R&D Score",
+    caption = "Source: Stanford AI Index - Global AI Vibrancy Tool (2021).  \n Economic score components include hiring intensity, newly funded companies, investment, skill penetration. \n R&D score components include the number of AI journal/conference/public repository publications and citations and AI-related patents fillings/grants")
+
+figure1
+ggsave(figure1, filename = "figures/figure1.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+
+
+
+
+
+
+
+#### Figure 2: Cumulative Private Investment 
+cumulative_priv_investment <- df %>% 
+  filter(Source_Category == "Economy") %>% 
+  filter(Metric %in% c("Total Private Investment in AI (In Billions Of US Dollars) [Cumulative 2013-2024]")) %>%
+  select(Country, Value) %>%
+  filter(Value > 3) %>% #just focus on top economies
+  group_by(Country) %>% 
+  ungroup() %>%
+  mutate(Country = forcats::fct_reorder(Country, Value), #reorder by size of metric
+         Highlight = ifelse(Country == uk, "Highlighted", "Other")) #add highlight column
+  
+
+figure2 <- ggplot(data = cumulative_priv_investment, aes(x = Country, y = Value, fill = Highlight)) +
+  geom_col() + 
+  geom_text(aes(label = round(Value,1)), vjust = -0.3, size = 2) + #add text of value to top
+  scale_fill_manual(values = c("Highlighted" = "#a72264", "Other" = "#b6c3e8")) + #highlight uk
+  scale_y_continuous(limits = c(0, 550), expand = c(0,0)) +
+  theme_ellen() +
+  theme(
+    axis.text.x = element_text(hjust = 1, angle = 30, size = 8),
+    axis.text.y = element_text(size = 8),
+    legend.position = "none",
+    axis.title.x = element_blank(),
+  ) +
+  labs(
+       y = "Billions USD",
+       title = "Total Private Investment in AI-related Companies 2013-2024",
+       subtitle = "Cumulative private capital invested in a given country over twelve years",
+       caption = "Source: Stanford AI Index - Economy 2025. Measures the total aggregate amount of private capital (in billions of US dollars) invested 
+in AI-related companies in a given country over the twelve-year period")
+
+figure2
+ggsave(figure2, filename = "figures/figure2.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+
+
+
+
+
+
+#### Figure 3: Global Talent Representation Gender in 2024
+AI_gender_2024 <- df %>%
+  filter(Metric %in% c("AI Talent Representation: Female",
+                       "AI Talent Representation: Male"),
+         Year == 2024,
+         !Country %in% c("Czechia", "Cyprus", "Luxembourg", "Costa Rica", "Estonia", "Lithuania", "Israel", "Greece", "Croatia", "Poland", "Denmark", "Turkey","New Zealand")) %>% #remove some countries to have more focus on uk (even split above/below)
+  select(Country, Metric, Value) %>%
+  pivot_wider(names_from = Metric, values_from = Value) %>%
+  rename(Female = `AI Talent Representation: Female`,
+         Male = `AI Talent Representation: Male`) %>%
+  arrange(Female) %>% #arrange by order
+  mutate(Country = factor(Country, levels = Country)) %>%
+  pivot_longer(cols = c(Female, Male), names_to = "Gender", values_to = "Percentage") %>% #so each country factor for both
+  mutate(
+    Highlight = ifelse(Country == "United Kingdom", "Highlighted", "Other"),
+    Fill = paste(Gender, Highlight, sep = "."), #create 4 categories of colours for each combo 
+    Fill = factor(Fill, levels = c("Male.Other","Male.Highlighted","Female.Other","Female.Highlighted"))
+  )
+
+
+figure3 <- ggplot(AI_gender_2024, aes(x = Country, y = Percentage, fill = Fill)) +
+  geom_bar(stat = "identity", position = "fill", linewidth = 0.75, color = "white") + #bars
+  coord_flip() +
+  geom_text(data = AI_gender_2024,
+            aes(label = paste0(round(Percentage,1),"%")), #add value in middle
+            position = position_fill(vjust = 0.5), #exact center
+            color = "white", size = 1.5, fontface = "bold") + #in white to stand out
+  scale_y_continuous(labels = scales::percent_format(), #as percentage
+                     expand = c(0,0)) +
+  scale_fill_manual(values = c(
+    "Female.Highlighted" = "#a72264", #colour for 4 options of labels
+    "Female.Other" = "#ed90af",
+    "Male.Highlighted" = "#5e72c5",
+    "Male.Other" = "skyblue"
+  )) +
+  theme_ellen() +
+  theme(legend.position = "none", #remove colour option
+        axis.title.y = element_blank(),
+        axis.text.y = element_text(size = 6),
+        axis.title.x = element_text(size = 8),
+        axis.text.x = element_text(size = 8)) +
+  labs(title = "2024 AI Talent Representation by Gender",
+       subtitle = "Percentage of AI Specialists Identifying as Female versus Male",
+       caption = "Source: Stanford AI Index - Economy, \n Measures the share of the total AI workforce in a given country that identifies as female, indicating gender diversity within the AI talent pool",
+       x = NULL, y = "Percentage %")
+
+figure3
+ggsave(figure3, filename = "figures/figure3.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+
+
+
+#### Figure 4:  Public Opinion - Past and Future impact of AI
+AI_change_life <- df %>% filter(Source_Category == "Public Opinion") %>%
+  filter(Year == 2025) %>% #latest year
+  filter(Metric %in% c("% Agreeing With Statement: Products And Services Using Artificial Intelligence Have Profoundly Changed My Daily Life In The Past 3-5 Years",
+                       "% Agreeing With Statement: Products And Services Using Artificial Intelligence Will Profoundly Change My Daily Life In The Next 3-5 Years")) %>%
+  mutate(Metric = recode(Metric, #simplify statments
+                         "% Agreeing With Statement: Products And Services Using Artificial Intelligence Have Profoundly Changed My Daily Life In The Past 3-5 Years" = "Profoundly Changed Daily Life in Past 3-5 Years",
+                         "% Agreeing With Statement: Products And Services Using Artificial Intelligence Will Profoundly Change My Daily Life In The Next 3-5 Years" = "Profoundly Changed Daily Life in Next 3-5 Years"),
+         Year = as_factor(Year)) %>%
+  group_by(Metric) %>%                  # handle each facet separately
+  arrange(Value) %>%                    # sort by value to in order
+  mutate(Country = factor(Country, levels = unique(Country))) %>%  # set factor levels
+  ungroup() %>%
+  mutate(Highlight = ifelse(Country == "United Kingdom", "UK", "Other")) #highlight uk
+
+
+metric_colours <- c(
+  "Profoundly Changed Daily Life in Past 3-5 Years" = "#19765e",
+  "Profoundly Changed Daily Life in Next 3-5 Years" = "#94f5dc"
+)
+
+figure4 <- ggplot(AI_change_life, aes(x = Country, y = Value, fill = Metric)) +
+  geom_col(width = 0.6, alpha = 0.7, position = "identity") + #columns for both in place
+  coord_flip() + #horizontal 
+  annotate("text", #add text annotation
+           x = "United Kingdom", y = 62,
+           label = "58% of UK Agree AI Will \nProfoundly Change their Life \nin the Next 3-5 Years",
+           hjust = 0, size = 2.5, 
+           color = "#a72264", fontface = "bold") +
+  annotate("curve", 
+           x = "United Kingdom", xend = "United Kingdom", y = 62, yend = 59,
+           arrow = arrow(length = unit(0.15, "cm")), 
+           curvature = 0.1, color = "#a72264", linewidth = 0.7) +
+  scale_y_continuous(expand = c(0,1)) +
+  scale_fill_manual(values  = metric_colours) + #pair metric colours selected 
+  guides(fill = "none")+ #remove fill legend
+  theme_ellen() +
+  theme(
+    axis.text.x = element_text(size = 8),
+    axis.text.y = element_text(size = 8),
+    plot.subtitle = element_markdown(size = 8, face = "bold", colour = "black") #away from theme
+    ) + 
+  labs( #rather than legend use subtile colour to show what each colour means
+    x = NULL, y = "% Agreeing",
+    subtitle = paste0(
+      "% Agreeing with Statement that AI has Profoundly Changed their Daily Life in the<br> ",
+      "<span style='color:", metric_colours["Profoundly Changed Daily Life in Past 3-5 Years"], "'>Past 3-5 Years</span> ",
+      " and that it will in the ",
+      "<span style='color:", metric_colours["Profoundly Changed Daily Life in Next 3-5 Years"], "'>Next 3-5 Years</span>"),
+       title = "Impact of AI on Daily Life: Past and Future 3-5 Years",
+       caption = "Source: Stanford AI Index - Public Opinion (2025). Measures the percentage of survey respondents in a given country who expressed agreement with the specified statement ")
+
+figure4
+ggsave(figure4, filename = "figures/figure4.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+
+
+
+
+
+
+
+#### Figure 5: Public Opinion Excited vs Nervous about AI
+opinion_emotion <- df %>% filter(Source_Category == "Public Opinion") %>%
+  filter(Metric %in% c("% Agreeing With Statement: Products And Services Using Artificial Intelligence Make Me Nervous",
+                       "% Agreeing With Statement: Products And Services Using Artificial Intelligence Make Me Excited")) %>%
+  filter(Year == 2025) %>%
+  mutate(Statement = str_trim(str_replace(Metric, "^% Agreeing With Statement:\\s*", ""))) %>% #replace following staement
+  group_by(Country) %>%
+  mutate(
+    excited = Value[Statement == "Products And Services Using Artificial Intelligence Make Me Excited"], #make new columns
+    nervous = Value[Statement == "Products And Services Using Artificial Intelligence Make Me Nervous"],
+    group = excited > nervous, #group countries by which one is bigger
+    order_val = pmin(excited, nervous) #then by values within that group
+  ) %>%
+  ungroup() %>%
+  arrange(group, order_val) %>%
+  mutate(Country = factor(Country, levels = unique(Country)))
+
+
+
+figure5 <- ggplot(opinion_emotion, aes(x = Country, y = Value, color = Statement)) +
+  geom_line(aes(group = Country), color = "grey70", linewidth = 1) +
+  geom_point(size = 2) + #so point is on top
+  coord_flip()+
+  annotate("text", 
+           x = "United Kingdom", y = 21,
+           label = "In the UK AI makes \n38% feel Excited vs\n64% Nervous",
+           hjust = 0, size = 2.5, color = "#a72264", fontface = "bold") +
+  annotate("curve", 
+           x = "United Kingdom", xend = "United Kingdom", y = 34, yend = 37,
+           arrow = arrow(length = unit(0.15, "cm")), 
+           curvature = 0.1, color = "#a72264", linewidth = 0.7) +
+  scale_y_continuous(limits = c(20, 85), breaks = seq(20, 80, 10), 
+                     labels = scales::label_percent(scale = 1),expand = c(0, 0))+
+  scale_color_manual(values = c("#c83131","#5e72c5")) + #specify colours
+  guides(color = "none") +
+  theme_ellen() +
+  theme(strip.text = element_text(size = 10),
+        panel.grid.major.x = element_line(color = "grey80", linewidth = 0.2),  # major vertical lines
+        panel.grid.minor.x = element_line(color = "grey90", linewidth = 0.1),
+        plot.subtitle = element_markdown(size = 8, face = "bold", colour = "black")) +
+  labs(
+    subtitle = paste0( #repeat with colours indicating the statement
+      "% Agreeing with Statement that Products and Services using AI make them ",
+      "<span style='color:", '#c83131', ";'><b>Excited</b></span>",
+      " or ",
+      "<span style='color:", '#5e72c5', ";'><b>Nervous</b></span>"),
+    title = "Emotional Response to Using AI",
+    caption = "Source: Stanford AI Index - Public Opinion (2025). Measures National Average of Survey 'Yes' Responses to Statements",
+    x = NULL, y = "% Agreeing"
+    )
+
+figure5
+ggsave(figure5, filename = "figures/figure5.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+
+
+
+#### Figure 6: GIRAI Global Responsible AI index score Map
+resp_AI <- df %>% #extract index scores
+  filter(Source_Category == "Responsible AI") %>%
+  filter(Metric == "The Global Index on Responsible AI Score") %>%
+  pivot_wider(names_from = Metric, values_from = Value) %>%
+  mutate(Country = fct_reorder(Country, `The Global Index on Responsible AI Score`))  
+
+
+resp_AI_index <- resp_AI %>%
+  select(ISO3, `The Global Index on Responsible AI Score`) #select just two columns necessary
+  
+world_map <- read_sf("/Users/ellen/Documents/GitHub/DataViz_2026/tutorials/Week 5 - EB/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp")
+world_map <- world_map |> filter(ISO_A3 != "ATA") #from tutorial map downloat
+
+combined <- world_map |> 
+  left_join(resp_AI_index, by = c("ISO_A3" = "ISO3")) #combine the two
+
+
+figure6 <- ggplot() + 
+  geom_sf(data = combined, 
+          aes(fill = `The Global Index on Responsible AI Score`),
+          linewidth = 0.25) +
+  coord_sf(crs = st_crs("ESRI:54030")) +  # Robinson
+  scale_fill_viridis_c(option = "plasma") + #colour 
+  labs(fill = "Global Index of Responsible AI") + #scale title
+  theme_ellen() +
+  theme(legend.position = "bottom",
+        axis.line.x = element_blank(), #remove all axes details
+        axis.line.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text = element_blank(),
+        axis.title = element_blank(),
+        legend.background = element_blank()) +
+  labs(title = "2024 Global Index on Responsible AI Score",
+       subtitle = "Measures the overall composite performance score (0-100) of a given country across all 185
+dimensions and pillars of responsible AI practices and governance.",
+       caption = "Source: Global Index on Responsible AI (GIRAI 2024).
+Contributing to the score are Dimension on Human Rights and AI, Responsible AI Capacities and Governance, 
+Government Actions and Frameworks and Non-state actor initiaives on Responsible AI"
+       )
+
+figure6
+ggsave(figure6, filename = "figures/figure6.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+
+
+#### Figure 7: Human Rights and AI Score and Trust in AI to not discriminate/bias
+bias <- df %>% filter(Source_Category == "Public Opinion") %>%
+  filter(Year == 2024) %>%
+  filter(Metric == "% Agreeing With Statement: I Trust Artificial Intelligence To Not Discriminate Or Show Bias Towards Any Group Of People") 
+
+rights <-  df %>% filter(Source_Category == "Responsible AI") %>%
+  filter(Metric == "DIMENSION SCORES: Human Rights and AI")
+
+comb <- inner_join( #join both metrics
+  bias %>% select(Country, bias_score = Value), #match them together by country
+  rights %>% select(Country, rights_index = Value), 
+  by = "Country") %>%
+    mutate(Highlight = Country == uk) #highlight
+
+
+figure7 <- ggplot(comb, aes(x = bias_score, y = rights_index, color = Highlight)) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "twodash", color = "grey90") + #back layer line
+  geom_point(size = 2) + #add points
+  geom_text_repel(aes(label = Country), size = 3, family = 'CMU Sans Serif',  show.legend = FALSE) +  # add country labels slightly above points
+  scale_y_continuous(limits = c(0, 85), expand = c(0,0))+
+  scale_x_continuous(limits = c(35, 85), breaks = seq(30, 80, 10), labels = scales::label_percent(scale = 1)) +
+  scale_color_manual(values = c("#5e72c5", "#a72264"))+
+  guides(color = "none") +
+  theme_ellen() +
+  theme(
+    panel.grid.major.x = element_line(color = "grey90", linewidth = 0.2),  # major vertical lines
+    panel.grid.major.y = element_line(color = "grey90", linewidth = 0.2)
+  ) +
+  labs(title = "Human Rights AI Score vs Public Trust in AI to Not Discriminate",
+       subtitle = "Responsible AI score on Human Rights and AI vs % Agreeing with Statement \n 'I Trust Artificial Intelligence To Not Discriminate Or Show Bias Towards Any Group Of People'",
+       caption = "Source: GIRAI Index 2024/ Stanford AI Index - Public Opinion (2024). 
+  Dimension Score represents Country take steps to protect promote and respect human rights implicated by AI. 
+  Agreement % Measures the percentage of survey respondents in a given country who expressed agreement with the specified statement",
+       x = "% Agreeing", 
+       y = "Human Rights and AI Score"
+       )
+
+figure7
+ggsave(figure7, filename = "figures/figure7.pdf", device = cairo_pdf,
+       width = 6, height = 4, units = "in", bg = "transparent")
+
+

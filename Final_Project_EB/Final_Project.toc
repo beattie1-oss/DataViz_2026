@@ -1,0 +1,7 @@
+\contentsline {subsection}{\numberline {0.1}Figure 1: Plot of AI Vibrancy Scores Economy vs R{\&}D}{3}{subsection.0.1}%
+\contentsline {subsection}{\numberline {0.2}Figure 2: Bar Chart of Total Private Investment in AI}{5}{subsection.0.2}%
+\contentsline {subsection}{\numberline {0.3}Figure 3: Percentage Stacked Bar Chart of Female AI Talent Representation }{7}{subsection.0.3}%
+\contentsline {subsection}{\numberline {0.4}Figure 4: Bar Chart of Public Opinion Impact of AI on Daily Life in the Past and Future}{9}{subsection.0.4}%
+\contentsline {subsection}{\numberline {0.5}Figure 5: Excited or Nervous? Lollipop Chart of Public Emotion on AI}{12}{subsection.0.5}%
+\contentsline {subsection}{\numberline {0.6}Figure 6: Map of Global Responsible AI Index Score }{15}{subsection.0.6}%
+\contentsline {subsection}{\numberline {0.7}Figure 7: Scatter plot of Human Right Score and Trust in AI to not discriminate}{17}{subsection.0.7}%
