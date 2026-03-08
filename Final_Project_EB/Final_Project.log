@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  8 MAR 2026 21:09
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.9.25)  8 MAR 2026 21:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1022,25 +1022,39 @@ Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 96.
 
 (Final_Project_EB.R) (Final_Project_EB.R) (Final_Project_EB.R [2])
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
+
+ []
+
 (Final_Project_EB.R [3])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure1.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure1.pdf, id=133, 433.62pt x 289.08pt>
+<figures/figure1.pdf, id=132, 433.62pt x 289.08pt>
 File: figures/figure1.pdf Graphic file (type pdf)
 <use figures/figure1.pdf>
 Package pdftex.def Info: figures/figure1.pdf  used on input line 114.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
-[4] (Final_Project_EB.R [5 <./figures/figure1.pdf>])
+[4]
+Underfull \hbox (badness 10000) in paragraph at lines 123--124
+
+ []
+
+(Final_Project_EB.R [5 <./figures/figure1.pdf>])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure2.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure2.pdf, id=189, 433.62pt x 289.08pt>
+<figures/figure2.pdf, id=187, 433.62pt x 289.08pt>
 File: figures/figure2.pdf Graphic file (type pdf)
 <use figures/figure2.pdf>
 Package pdftex.def Info: figures/figure2.pdf  used on input line 129.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
-[6] (Final_Project_EB.R [7 <./figures/figure2.pdf>] [8])
+[6]
+Underfull \hbox (badness 10000) in paragraph at lines 139--140
+
+ []
+
+(Final_Project_EB.R [7 <./figures/figure2.pdf>] [8])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure3.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
@@ -1049,38 +1063,58 @@ File: figures/figure3.pdf Graphic file (type pdf)
 <use figures/figure3.pdf>
 Package pdftex.def Info: figures/figure3.pdf  used on input line 145.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--157
+
+ []
+
 [9 <./figures/figure3.pdf>] (Final_Project_EB.R [10])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure4.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure4.pdf, id=361, 433.62pt x 289.08pt>
+<figures/figure4.pdf, id=355, 433.62pt x 289.08pt>
 File: figures/figure4.pdf Graphic file (type pdf)
 <use figures/figure4.pdf>
 Package pdftex.def Info: figures/figure4.pdf  used on input line 162.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
-[11] [12 <./figures/figure4.pdf>] (Final_Project_EB.R [13])
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 172--173
+
+ []
+
+[12 <./figures/figure4.pdf>] (Final_Project_EB.R [13])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure5.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure5.pdf, id=462, 433.62pt x 289.08pt>
+<figures/figure5.pdf, id=461, 433.62pt x 289.08pt>
 File: figures/figure5.pdf Graphic file (type pdf)
 <use figures/figure5.pdf>
 Package pdftex.def Info: figures/figure5.pdf  used on input line 178.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
-[14 <./figures/figure5.pdf>] (Final_Project_EB.R [15])
+[14 <./figures/figure5.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 191--193
+
+ []
+
+(Final_Project_EB.R [15])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure6.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure6.pdf, id=537, 433.62pt x 289.08pt>
+<figures/figure6.pdf, id=535, 433.62pt x 289.08pt>
 File: figures/figure6.pdf Graphic file (type pdf)
 <use figures/figure6.pdf>
 Package pdftex.def Info: figures/figure6.pdf  used on input line 198.
 (pdftex.def)             Requested size: 446.26582pt x 297.52634pt.
-[16 <./figures/figure6.pdf>] (Final_Project_EB.R [17])
+[16 <./figures/figure6.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 209--210
+
+ []
+
+(Final_Project_EB.R [17])
 
 pdfTeX warning: pdflatex.exe (file ./figures/figure7.pdf): PDF inclusion: found
  PDF version <1.7>, but at most version <1.5> allowed
-<figures/figure7.pdf, id=611, 433.62pt x 289.08pt>
+<figures/figure7.pdf, id=608, 433.62pt x 289.08pt>
 File: figures/figure7.pdf Graphic file (type pdf)
 <use figures/figure7.pdf>
 Package pdftex.def Info: figures/figure7.pdf  used on input line 215.
@@ -1125,7 +1159,7 @@ Package rerunfilecheck Info: File `Final_Project.out' has not changed.
 Here is how much of TeX's memory you used:
  28981 strings out of 474486
  507265 string characters out of 5743755
- 2441542 words of memory out of 5000000
+ 2438542 words of memory out of 5000000
  50328 multiletter control sequences out of 15000+600000
  573250 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1143,7 +1177,7 @@ eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm2074.pk><C:/Users/ellen/AppData/Local
 ata/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Users/e
 llen/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
 
-Output written on Final_Project.pdf (20 pages, 765287 bytes).
+Output written on Final_Project.pdf (20 pages, 765306 bytes).
 PDF statistics:
  1205 PDF objects out of 1440 (max. 8388607)
  400 named destinations out of 1000 (max. 500000)

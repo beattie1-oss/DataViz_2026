@@ -105,7 +105,7 @@ For simplicity and consistency I created a base theme to apply to all the figure
 \vspace{1cm}
 \subsection{Figure 1: Plot of AI Vibrancy Scores Economy vs R{\&}D}
 
-First, I wanted to understand the landscape of global AI development. To do this I created Figure 1 which plots the relative positions of major world countries on two axes: Research and Development describing the countries' AI innovation capacity including components such as AI journal/conference publications and AI-related patent fillings/grants; and Economic describing the countries' capacity to exploit AI including talent intensity, investment, new AI companies and AI skill penetration. The normalised vibrancy score on these two dimension is sourced from the Stanford Global Vibrancy index.   
+First, I wanted to understand the landscape of global AI development. To do this I created Figure 1 which plots the relative positions of major world countries on two axes: Research and Development describing the countries' AI innovation capacity including components such as AI journal/conference publications and AI-related patent fillings/grants; and Economic describing the countries' capacity to exploit AI including talent intensity, investment, new AI companies and AI skill penetration. The normalised vibrancy score on these two dimension is sourced from the Stanford Global Vibrancy index.   \\
 
 \lstinputlisting[language=R, firstline=84, lastline= 120]{Final_Project_EB.R} 
 
@@ -120,7 +120,7 @@ Figure 1 shows that the US, China and India are clear outliers in different ways
 \vspace{1cm}
 \subsection{Figure 2: Bar Chart of Total Private Investment in AI}
 
-To better understand the level of private investment in AI, I analysed the level of private capital investment per country over the last twelve years. Figure 2 shows a bar chart of the cumulative amount of investment (2013-2024) of the top countries in the world, highlighting the UK by colour and adding the value (in billions USD) to each bar to easily display the total private capital invested in each country.  
+To better understand the level of private investment in AI, I analysed the level of private capital investment per country over the last twelve years. Figure 2 shows a bar chart of the cumulative amount of investment (2013-2024) of the top countries in the world, highlighting the UK by colour and adding the value (in billions USD) to each bar to easily display the total private capital invested in each country. \\ 
 
 	\lstinputlisting[language=R, firstline=129, lastline= 162]{Final_Project_EB.R} 
 
@@ -136,7 +136,7 @@ Figure 2 shows how much more the US (and to some degree China) has invested priv
 \vspace{1cm}
 \subsection{Figure 3: Percentage Stacked Bar Chart of Female AI Talent Representation }
 
-I wanted to look further into the UK's AI capabilities, and in particular at the workforce composition and whether AI talent is spread across genders. To do this I plotted a percentage stacked bar chart to easily visualise what proportion of AI specialists identified as female versus male. By lining up the countries it is easy to determine how much different workforces differ in terms of gender representation and how the UK compares.
+I wanted to look further into the UK's AI capabilities, and in particular at the workforce composition and whether AI talent is spread across genders. To do this I plotted a percentage stacked bar chart to easily visualise what proportion of AI specialists identified as female versus male. By lining up the countries it is easy to determine how much different workforces differ in terms of gender representation and how the UK compares.\\
 
 \lstinputlisting[language=R, firstline=170, lastline= 218]{Final_Project_EB.R} 
 
@@ -153,7 +153,7 @@ The UK in 2024 appeared solidly in the middle of the pack in terms of female tal
 \vspace{1cm}
 \subsection{Figure 4: Bar Chart of Public Opinion Impact of AI on Daily Life in the Past and Future}
 
-Moving beyond these economic and R\&D factors, I was also interested in understanding how the UK public think and feel about AI. Firstly I created a bar chart using the Stanford Public Opinion index based on survey data that describes whether people feel that AI has profoundly changed their life in the past 3-5 years and their projections about whether it will in the next 3-5 years.  As the metric from the survey refers to the percentage that agree with a specific statement, and as in all cases there was a higher percentage agreeing on future impact,  a dodged bar chart was used. This allows both percentages to be plotted together for each country allowing for easy comparison of each between countries as well as the size of the difference between the two metrics. 
+Moving beyond these economic and R\&D factors, I was also interested in understanding how the UK public think and feel about AI. Firstly I created a bar chart using the Stanford Public Opinion index based on survey data that describes whether people feel that AI has profoundly changed their life in the past 3-5 years and their projections about whether it will in the next 3-5 years.  As the metric from the survey refers to the percentage that agree with a specific statement, and as in all cases there was a higher percentage agreeing on future impact,  a dodged bar chart was used. This allows both percentages to be plotted together for each country allowing for easy comparison of each between countries as well as the size of the difference between the two metrics. \\
 
 \lstinputlisting[language=R, firstline=223, lastline= 277]{Final_Project_EB.R} 
 
@@ -169,7 +169,7 @@ Figure 4 highlights that people in the UK feel like their lives have been, and w
 \vspace{1cm}
 \subsection{Figure 5: Excited or Nervous? Lollipop Chart of Public Emotion on AI}
 
-As well as reported and expected impact of AI, I was also interested in public emotion about AI, so I analysed the opinion index on the percentage of people that feel excited or nervous about products and services that use AI in each country. Unlike the previous Figure, there was a clear split between countries where people wer more excited than nervous, and vice versa. To visualise this clearly I decided to use a lollipop chart where points correspond to the specific emotion (excited or nervous) and the distance between the two represented by a line connection. 
+As well as reported and expected impact of AI, I was also interested in public emotion about AI, so I analysed the opinion index on the percentage of people that feel excited or nervous about products and services that use AI in each country. Unlike the previous Figure, there was a clear split between countries where people wer more excited than nervous, and vice versa. To visualise this clearly I decided to use a lollipop chart where points correspond to the specific emotion (excited or nervous) and the distance between the two represented by a line connection. \\
 
 \lstinputlisting[language=R, firstline=286, lastline= 339]{Final_Project_EB.R} 
 
@@ -189,7 +189,7 @@ Figure 5 shows a large cohort of countries where more people agreeing with the s
 \subsection{Figure 6: Map of Global Responsible AI Index Score }
 
 Finally, I wanted to look into how the UK performs on metrics reporting ethical use of AI particularly how responsible the UK practices and governance is on ensuring human rights are maintained.   
-Initially I was intrigued whether there are any interesting global patterns in the countries that are more concerned at pursuing AI in a responsible manner, and the performance of the UK in particular. Using the GIRAI Index Score for each country in 2024, I visualised this score on a world map, pairing the colour to the index score to show patterns in country location more clearly.  
+Initially I was intrigued whether there are any interesting global patterns in the countries that are more concerned at pursuing AI in a responsible manner, and the performance of the UK in particular. Using the GIRAI Index Score for each country in 2024, I visualised this score on a world map, pairing the colour to the index score to show patterns in country location more clearly.  \\
 
 \lstinputlisting[language=R, firstline=344, lastline= 388]{Final_Project_EB.R} 
 
@@ -206,7 +206,7 @@ Figure 6 maps countries using the Global Index of Responsible AI, showing that W
 \vspace{1cm}
 \subsection{Figure 7: Scatter plot of Human Right Score and Trust in AI to not discriminate}
 
-Finally, I wanted to explore the relationship between a country's Human Rights with regard to AI and  public trust in AI being non-discriminatory. Plotting each country by their GIRAI Dimension score on Human Rights  visualises the extent to which they takes steps to protect, promote, and respect human rights implicated by AI such as privacy, equality, and freedom; and the public opinion section of Stanford's AI index as the percentage of individuals that say they trust AI to not discriminate or bias towards any groups. 
+Finally, I wanted to explore the relationship between a country's Human Rights with regard to AI and  public trust in AI being non-discriminatory. Plotting each country by their GIRAI Dimension score on Human Rights  visualises the extent to which they takes steps to protect, promote, and respect human rights implicated by AI such as privacy, equality, and freedom; and the public opinion section of Stanford's AI index as the percentage of individuals that say they trust AI to not discriminate or bias towards any groups. \\
 
 \lstinputlisting[language=R, firstline=392, lastline= 431]{Final_Project_EB.R} 
 
